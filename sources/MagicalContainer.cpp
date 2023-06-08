@@ -8,9 +8,9 @@ MagicalContainer::MagicalContainer() {}
  * @param element to add
  */
 void MagicalContainer::addElement(int element) {
-    shared_ptr<int> newElement(new int(element));
-    container.push_back(newElement);
-    SideCrossIteratorVec.clear();
+    shared_ptr<int> newElement(new int(element)); // create new element of shared pointer
+    container.push_back(newElement); // inset the element to regular container
+    SideCrossIteratorVec.clear(); // clear SideCrossIterator Vector
 
     // AscendingIterator
     AscendingIteratorVec.push_back(newElement);
@@ -23,20 +23,20 @@ void MagicalContainer::addElement(int element) {
     //SideCrossIterator
     auto rindex = AscendingIteratorVec.begin();
     auto lindex = AscendingIteratorVec.rbegin();
-    for (int i=0 ; i<AscendingIteratorVec.size()/2;i++){
+    for (int i=0 ; i<AscendingIteratorVec.size()/2;i++){// go over array in size /2 step to add element in both side
        SideCrossIteratorVec.push_back(*rindex);
        SideCrossIteratorVec.push_back(*lindex);
        rindex++;
        lindex++;
     }
-    if ((AscendingIteratorVec.size()%2)!=0){
+    if ((AscendingIteratorVec.size()%2)!=0){// if we have odd element add the element in the middle
         SideCrossIteratorVec.push_back(*rindex);
     }
 
     //Prime
-    if(isPrime(element)) {
+    if(isPrime(element)) { // check if new number is prime
         PrimeIteratorVec.push_back(newElement);
-        std::sort(PrimeIteratorVec.begin(), PrimeIteratorVec.end(),
+        std::sort(PrimeIteratorVec.begin(), PrimeIteratorVec.end(), // sort vector
                   [](const shared_ptr<int> a, const shared_ptr<int> b) {
                       return *a < *b;
                   });
